@@ -255,7 +255,7 @@ th.num-col{text-align:right}
 .ms.back .v{color:var(--muted)}
 
 /* ── CHIP ── */
-.chip-group{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip-group{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:6px}
 .chip{display:inline-flex;align-items:center;gap:4px;background:#EEF2FF;color:var(--indigo);border-radius:20px;padding:3px 10px;font-size:12px;font-weight:500}
 .chip .rm{cursor:pointer;opacity:.6;font-size:13px;line-height:1;margin-left:2px;transition:opacity .1s}
 .chip .rm:hover{opacity:1}
@@ -408,19 +408,36 @@ tr.proj-row:hover td{background:#F8F9FF}
 /* ── DRAFT BADGE ── */
 .draft-badge{font-size:10px;font-weight:600;background:#FEF3C7;color:#92400E;border:1px solid #FDE68A;padding:2px 7px;border-radius:20px;margin-left:10px;vertical-align:middle}
 
-/* ── RICH TEXT EDITOR (RTE) ── */
-.rte-wrap{border:1.5px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;transition:border .15s}
-.rte-wrap:focus-within{border-color:var(--indigo);box-shadow:0 0 0 3px rgba(99,102,241,.12)}
-.rte-toolbar{display:flex;align-items:center;gap:2px;padding:6px 8px;background:#F9FAFB;border-bottom:1px solid var(--border);flex-wrap:wrap}
-.rte-btn{display:inline-flex;align-items:center;justify-content:center;width:30px;height:28px;border:none;background:none;border-radius:5px;cursor:pointer;color:var(--muted);font-size:13px;font-weight:700;font-family:inherit;transition:all .12s}
-.rte-btn:hover{background:#EEF2FF;color:var(--indigo)}
-.rte-btn.active{background:#EEF2FF;color:var(--indigo)}
-.rte-divider{width:1px;height:18px;background:var(--border);margin:0 4px}
-.rte-editor{min-height:160px;max-height:360px;overflow-y:auto;padding:12px 14px;font-size:14px;line-height:1.7;color:var(--text);outline:none;font-family:inherit}
-.rte-editor:empty::before{content:attr(data-placeholder);color:#9CA3AF;pointer-events:none}
-.rte-editor ul,.rte-editor ol{padding-left:22px}
-.rte-editor li{margin-bottom:2px}
-.rte-editor b,.rte-editor strong{font-weight:700;color:var(--navy)}
+/* ── PROJECT UPDATE PICKER (Weekly Status) ── */
+.ru-search-wrap{position:relative}
+.ru-search-wrap .ru-search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--muted);pointer-events:none}
+.ru-search-wrap input{padding-left:38px!important}
+.ru-search-dropdown{position:absolute;top:calc(100% + 6px);left:0;right:0;background:#fff;border:1px solid var(--border);border-radius:var(--radius-md);box-shadow:0 12px 32px rgba(17,24,39,.16);max-height:260px;overflow-y:auto;z-index:20;padding:6px}
+.ru-search-item{padding:9px 10px;font-size:13px;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;border-radius:8px}
+.ru-search-item:hover,.ru-search-item.active{background:#EEF2FF;color:var(--indigo-dark)}
+.ru-search-item .n{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ru-search-item .s{font-size:11px;color:var(--muted);flex-shrink:0}
+.ru-search-empty{padding:10px;font-size:12px;color:var(--muted)}
+.ru-search-custom{padding:9px 10px;border-radius:8px;cursor:pointer;color:var(--indigo);font-weight:600;font-size:13px;margin-top:2px;border-top:1px solid var(--border)}
+.ru-search-custom:hover{background:#EEF2FF}
+.ru-block{border:1px solid var(--border);border-radius:var(--radius-md);margin-bottom:14px;background:#fff;overflow:hidden;box-shadow:0 1px 2px rgba(17,24,39,.04);transition:box-shadow .18s ease,border-color .18s ease}
+.ru-block:hover{border-color:#D8DCE5;box-shadow:0 6px 20px rgba(17,24,39,.08)}
+.ru-block:focus-within{border-color:var(--indigo);box-shadow:0 0 0 3px rgba(99,102,241,.12)}
+.ru-block-head{display:flex;align-items:center;gap:10px;padding:12px 14px;background:linear-gradient(180deg,#FAFBFF,#F7F8FC);border-bottom:1px solid var(--border)}
+.ru-block-avatar{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
+.ru-block-name-wrap{flex:1;min-width:0;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ru-block-name{font-size:14px;font-weight:700;color:var(--navy);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:300px}
+.ru-block textarea{display:block;width:100%;border:none;border-radius:0;min-height:112px;padding:14px;font-size:13.5px;line-height:1.7;color:var(--text);background:transparent;outline:none;resize:vertical;font-family:inherit;transition:background .15s}
+.ru-block textarea::placeholder{color:#9CA3AF}
+.ru-block textarea:focus{background:#FAFBFF}
+.ru-empty-hint{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;border:1.5px dashed #D6D9E0;border-radius:var(--radius-md);background:#FAFAFB;color:var(--muted);font-size:12.5px;padding:26px 16px;margin-top:2px}
+.ru-empty-hint svg{width:26px;height:26px;opacity:.35}
+/* ── read-only rendering (report cards + public share page) ── */
+.ru-view-block{margin-bottom:14px}
+.ru-view-block:last-child{margin-bottom:0}
+.ru-view-name{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.ru-view-block ul{margin:0;padding-left:20px}
+.ru-view-block li{margin-bottom:5px;line-height:1.6}
 
 /* ── WEEKLY STATUS REPORTS PAGE ── */
 .reports-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
@@ -496,6 +513,12 @@ tr.proj-row:hover td{background:#F8F9FF}
 /* CEO summary card — reused in the entry panel preview and the public share page */
 .ceo-summary-card{background:linear-gradient(135deg,var(--navy) 0%,#1e3a8a 100%);border-radius:var(--radius-lg);padding:24px 26px;color:#fff;margin-bottom:20px}
 .ceo-summary-card h3{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;opacity:.7;margin-bottom:16px}
+.ceo-summary-meta{display:flex;align-items:center;gap:12px;padding-bottom:18px;margin-bottom:18px;border-bottom:1px solid rgba(255,255,255,.15)}
+.ceo-summary-avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
+.ceo-summary-meta-info{flex:1;min-width:0}
+.ceo-summary-meta-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.ceo-summary-meta-name{font-size:16px;font-weight:700}
+.ceo-summary-meta-sub{font-size:12px;opacity:.7;margin-top:3px}
 .ceo-summary-score{display:flex;align-items:baseline;gap:10px;margin-bottom:18px}
 .ceo-summary-score .num{font-size:40px;font-weight:800;letter-spacing:-1px}
 .ceo-summary-score .cat{font-size:14px;font-weight:600;opacity:.85}
@@ -1077,10 +1100,15 @@ tr.proj-row:hover td{background:#F8F9FF}
         </div>
         <div class="settings-section">
           <h3>Data Sync <span style="font-size:11px;font-weight:400;color:var(--muted);margin-left:6px">Share project data across all users</span></h3>
-          <p style="font-size:13px;color:var(--muted);margin-bottom:16px">Connect a free Firebase Realtime Database so all portal users see the same project data in real time. <a href="https://console.firebase.google.com/" target="_blank" rel="noopener" style="color:var(--indigo)">Create a free Firebase project →</a><br><span style="font-size:12px">In Firebase: Create project → Realtime Database → Start in test mode → copy the database URL (ends in <code>.firebaseio.com</code>)</span></p>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:16px">Connect a free Firebase Realtime Database so all portal users see the same project data in real time. <a href="https://console.firebase.google.com/" target="_blank" rel="noopener" style="color:var(--indigo)">Create a free Firebase project →</a><br><span style="font-size:12px">In Firebase: Create project → Realtime Database → copy the database URL (ends in <code>.firebaseio.com</code>)</span></p>
           <div class="field">
             <label for="fb-url-input">Firebase Realtime Database URL</label>
             <input id="fb-url-input" type="text" placeholder="https://your-project-default-rtdb.firebaseio.com" autocomplete="off"/>
+          </div>
+          <div class="field">
+            <label for="fb-apikey-input">Firebase Web API Key <span style="font-weight:400;color:var(--muted);font-size:10px;text-transform:none;letter-spacing:0">— enables authenticated access; safe to paste here, it isn't a secret</span></label>
+            <input id="fb-apikey-input" type="text" placeholder="AIza…" autocomplete="off"/>
+            <p style="font-size:11px;color:var(--muted);margin-top:6px">Firebase → Project settings → General → Your apps → Web app → copy the <code>apiKey</code>. Then enable Firebase → Authentication → Sign-in method → <b>Anonymous</b>.</p>
           </div>
           <div style="display:flex;gap:10px;margin-top:12px">
             <button class="btn btn-primary btn-sm" onclick="saveFirebaseUrl()" style="width:auto">Save & Sync</button>
@@ -1347,24 +1375,17 @@ tr.proj-row:hover td{background:#F8F9FF}
       <div class="field"><label for="rm-end">Week End</label><input id="rm-end" type="date" oninput="updateReportTitle()"/></div>
     </div>
     <div class="field">
-      <label>Status Update <span style="font-weight:400;color:var(--muted);font-size:10px;text-transform:none;letter-spacing:0">— rich text, paste, or type bullet points</span></label>
-      <div class="rte-wrap">
-        <div class="rte-toolbar" role="toolbar" aria-label="Text formatting">
-          <button class="rte-btn" onclick="rteCmd('bold')" title="Bold" aria-label="Bold"><b>B</b></button>
-          <button class="rte-btn" onclick="rteCmd('italic')" title="Italic" aria-label="Italic"><i>I</i></button>
-          <button class="rte-btn" onclick="rteCmd('underline')" title="Underline" aria-label="Underline"><u>U</u></button>
-          <div class="rte-divider"></div>
-          <button class="rte-btn" onclick="rteCmd('insertUnorderedList')" title="Bullet List" aria-label="Bullet list">
-            <svg viewBox="0 0 16 16" fill="currentColor" width="14" height="14"><circle cx="2" cy="4.5" r="1.5"/><rect x="5" y="3.75" width="10" height="1.5" rx=".75"/><circle cx="2" cy="9" r="1.5"/><rect x="5" y="8.25" width="10" height="1.5" rx=".75"/><circle cx="2" cy="13.5" r="1.5"/><rect x="5" y="12.75" width="10" height="1.5" rx=".75"/></svg>
-          </button>
-          <button class="rte-btn" onclick="rteCmd('insertOrderedList')" title="Numbered List" aria-label="Numbered list">
-            <svg viewBox="0 0 16 16" fill="currentColor" width="14" height="14"><text x="0" y="5.5" font-size="5" font-weight="700">1.</text><rect x="5" y="3.75" width="10" height="1.5" rx=".75"/><text x="0" y="10" font-size="5" font-weight="700">2.</text><rect x="5" y="8.25" width="10" height="1.5" rx=".75"/><text x="0" y="14.5" font-size="5" font-weight="700">3.</text><rect x="5" y="12.75" width="10" height="1.5" rx=".75"/></svg>
-          </button>
-          <div class="rte-divider"></div>
-          <button class="rte-btn" onclick="rteCmd('removeFormat')" title="Clear formatting" aria-label="Clear formatting" style="font-size:11px">Aa</button>
-        </div>
-        <div id="rm-editor" class="rte-editor" contenteditable="true" data-placeholder="Add your weekly highlights, blockers, completed items…" aria-label="Report content" role="textbox" aria-multiline="true"></div>
+      <label>Add a Project Update <span style="font-weight:400;color:var(--muted);font-size:10px;text-transform:none;letter-spacing:0">— search a project, add it, then add your notes for it</span></label>
+      <div class="ru-search-wrap">
+        <svg class="ru-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input id="rm-project-search" type="text" placeholder="Search project name…" autocomplete="off" aria-label="Search project name" oninput="ruSearchInput()" onfocus="ruSearchInput()" onblur="ruSearchBlur()" onkeydown="ruSearchKeydown(event)"/>
+        <div id="rm-project-dropdown" class="ru-search-dropdown hidden"></div>
       </div>
+    </div>
+    <div id="rm-project-blocks"></div>
+    <div id="rm-blocks-empty" class="ru-empty-hint">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      No project updates added yet.<br>Search above to add your first one.
     </div>
 
     <div class="err-msg" id="rm-err" role="alert"></div>
@@ -1537,6 +1558,8 @@ tr.proj-row:hover td{background:#F8F9FF}
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" crossorigin="anonymous"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js" crossorigin="anonymous"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js" crossorigin="anonymous"></script>
 <script>
 /*!
  * liquid-glass.js — Apple-style liquid glass refraction for any element.
@@ -1862,11 +1885,35 @@ document.getElementById('perf-entry-body').addEventListener('change',e=>{
 // ═══════════════════════════════════════════════════════
 //  AUTH
 // ═══════════════════════════════════════════════════════
+// Maps a Firebase Auth error to a friendly message. `notFoundMsg` overrides
+// the message for the "no account exists yet" case, which differs by screen.
+function fbAuthErrorMessage(e,notFoundMsg){
+  const code=e&&e.code;
+  if(code==='auth/user-not-found')return notFoundMsg||'No account found for this email.';
+  if(code==='auth/wrong-password'||code==='auth/invalid-credential')return'Incorrect email or password. Please try again.';
+  if(code==='auth/too-many-requests')return'Too many attempts. Please wait a moment and try again.';
+  if(code==='auth/email-already-in-use')return'An account already exists for this email. Try signing in instead.';
+  if(code==='auth/weak-password')return'Password must be at least 6 characters.';
+  if(code==='auth/invalid-email')return'That email address looks invalid.';
+  return(e&&e.message)?e.message:'Something went wrong. Please try again.';
+}
+
 async function doLogin(){
   const email=document.getElementById('login-email').value.trim().toLowerCase();
   const pass=document.getElementById('login-pass').value;
   hideErr('login-err');
   if(!ALLOWED.includes(email)){showErr('login-err','This email is not authorised.');return}
+  if(fbAuthAvailable()){
+    try{
+      await fbAuth().signInWithEmailAndPassword(email,pass);
+      localStorage.setItem('d2s_session',email);
+      enterApp(email);
+    }catch(e){
+      showErr('login-err',fbAuthErrorMessage(e,'No password set. Click "Create password" to set one.'));
+    }
+    return;
+  }
+  // Legacy local fallback — only used before Firebase is configured in Settings
   const stored=localStorage.getItem('d2s_pw_'+email);
   if(!stored){showErr('login-err','No password set. Click "Create password" to set one.');return}
   const hash=await sha256(pass);
@@ -1883,6 +1930,18 @@ async function doRegister(){
   if(!ALLOWED.includes(email)){showErr('reg-err','Only @dot2shape.com emails are allowed.');return}
   if(pass.length<8){showErr('reg-err','Password must be at least 8 characters.');return}
   if(pass!==pass2){showErr('reg-err','Passwords do not match.');return}
+  if(fbAuthAvailable()){
+    try{
+      await fbAuth().createUserWithEmailAndPassword(email,pass);
+      localStorage.setItem('d2s_session',email);
+      toast('Account created! Welcome.','success');
+      enterApp(email);
+    }catch(e){
+      showErr('reg-err',fbAuthErrorMessage(e));
+    }
+    return;
+  }
+  // Legacy local fallback — only used before Firebase is configured in Settings
   const hash=await sha256(pass);
   localStorage.setItem('d2s_pw_'+email,hash);
   localStorage.setItem('d2s_session',email);
@@ -1892,15 +1951,16 @@ async function doRegister(){
 
 function logout(){
   localStorage.removeItem('d2s_session');
+  if(fbAuthAvailable())fbAuth().signOut().catch(()=>{});
   showScreen('screen-login');
 }
 
 // ═══════════════════════════════════════════════════════
 //  FORGOT / RESET PASSWORD
-//  No backend/email exists in this app — access is already gated by the
-//  ALLOWED @dot2shape.com allow-list (same trust model as "Create password").
-//  Resetting simply re-runs that same check, then overwrites the local
-//  password hash for that email.
+//  With Firebase configured, this sends a real reset email via Firebase
+//  Auth — only the actual email owner can act on it. Before Firebase is
+//  configured, falls back to the original in-app allow-list-gated reset
+//  (same trust model as "Create password").
 // ═══════════════════════════════════════════════════════
 let _forgotEmail='';
 function forgotBackToEmail(){
@@ -1914,10 +1974,21 @@ function forgotBackToEmail(){
   hideErr('forgot-reset-err');
   setTimeout(()=>document.getElementById('forgot-email')?.focus(),50);
 }
-function forgotContinue(){
+async function forgotContinue(){
   const email=document.getElementById('forgot-email').value.trim().toLowerCase();
   hideErr('forgot-email-err');
   if(!ALLOWED.includes(email)){showErr('forgot-email-err','This email is not authorised.');return}
+  if(fbAuthAvailable()){
+    try{
+      await fbAuth().sendPasswordResetEmail(email);
+      toast('Password reset email sent — check your inbox.','success');
+      showScreen('screen-login');
+    }catch(e){
+      showErr('forgot-email-err',fbAuthErrorMessage(e,'No account found for this email yet. Click "Create password" instead.'));
+    }
+    return;
+  }
+  // Legacy local fallback — only used before Firebase is configured in Settings
   _forgotEmail=email;
   document.getElementById('forgot-reset-sub').textContent=`Set a new password for ${email}`;
   document.getElementById('forgot-step-email').classList.add('hidden');
@@ -2341,7 +2412,90 @@ function engBadge(s){const k=s||'short-term';return`<span class="badge badge-eng
 // Set your Firebase DB URL in Settings → Data Sync once you have one.
 // Falls back to localStorage if not configured.
 const FB_KEY='d2s_firebase_url'; // stored in localStorage by user
+const FB_APIKEY_KEY='d2s_firebase_api_key'; // Firebase Web API key — safe to expose client-side, see Firebase docs
 function fbUrl(){return(localStorage.getItem(FB_KEY)||'').replace(/\/$/,'');}
+function fbApiKey(){return localStorage.getItem(FB_APIKEY_KEY)||'';}
+
+// ═══════════════════════════════════════════════════════
+//  FIREBASE AUTH — two separate identities:
+//  1) The real signed-in portal user (bisma/rabia) — a genuine
+//     Firebase email/password account. Database rules require this
+//     specific identity for WRITES, so only account holders can
+//     ever change data.
+//  2) An anonymous session — used only by public "Share" pages so
+//     a recipient with no account can still READ a shared report,
+//     without ever exposing raw unauthenticated access.
+//  Everything falls back to a plain unauthenticated request when no
+//  API key is configured yet, so nothing breaks mid-setup.
+// ═══════════════════════════════════════════════════════
+function fbProjectIdFromUrl(url){
+  try{return new URL(url).hostname.replace(/-default-rtdb\..*$/,'');}catch(e){return'';}
+}
+function fbAuthAvailable(){return!!(fbUrl()&&fbApiKey()&&typeof firebase!=='undefined');}
+
+// The primary app instance, tied to the locally configured project (Settings → Data Sync).
+// Real login (email/password) happens against this app.
+let _fbPrimaryApp=null;
+function fbPrimaryApp(){
+  if(!fbAuthAvailable())return null;
+  if(_fbPrimaryApp)return _fbPrimaryApp;
+  const url=fbUrl(),apiKey=fbApiKey(),projectId=fbProjectIdFromUrl(url);
+  try{_fbPrimaryApp=firebase.app('d2sPrimary');}
+  catch(e){_fbPrimaryApp=firebase.initializeApp({apiKey,authDomain:projectId+'.firebaseapp.com',databaseURL:url,projectId},'d2sPrimary');}
+  return _fbPrimaryApp;
+}
+function fbAuth(){const app=fbPrimaryApp();return app?firebase.auth(app):null;}
+
+// Token for whoever is really logged into the portal right now (bisma/rabia).
+async function fbUserToken(){
+  const auth=fbAuth();
+  if(!auth||!auth.currentUser)return null;
+  try{return await auth.currentUser.getIdToken();}catch(e){return null;}
+}
+// Authenticated fetch used by the internal app once a real user is logged in.
+async function fbFetch(path,options){
+  const url=fbUrl();
+  const token=await fbUserToken();
+  let full=url+path;
+  if(token)full+=(full.includes('?')?'&':'?')+'auth='+encodeURIComponent(token);
+  return fetch(full,options);
+}
+
+// Anonymous sessions — keyed by API key, used only for public share pages.
+const _fbAnonPromises={};
+function fbEnsureAnonSignedIn(url,apiKey){
+  if(!url||!apiKey||typeof firebase==='undefined')return Promise.resolve(false);
+  if(!_fbAnonPromises[apiKey]){
+    _fbAnonPromises[apiKey]=(async()=>{
+      try{
+        const projectId=fbProjectIdFromUrl(url);
+        const appName='fbAnon_'+apiKey.slice(-10);
+        let app;
+        try{app=firebase.app(appName);}
+        catch(e){app=firebase.initializeApp({apiKey,authDomain:projectId+'.firebaseapp.com',databaseURL:url,projectId},appName);}
+        const auth=firebase.auth(app);
+        if(!auth.currentUser)await auth.signInAnonymously();
+        return true;
+      }catch(e){console.warn('Firebase anonymous sign-in unavailable — continuing without auth.',e);return false;}
+    })();
+  }
+  return _fbAnonPromises[apiKey];
+}
+async function fbAnonToken(url,apiKey){
+  if(!apiKey)return null;
+  const ok=await fbEnsureAnonSignedIn(url,apiKey);
+  if(!ok)return null;
+  try{return await firebase.app('fbAnon_'+apiKey.slice(-10)).auth().currentUser.getIdToken();}
+  catch(e){return null;}
+}
+// Authenticated (anonymous) fetch for public share pages, which carry their own url/key in the link.
+async function fbFetchPublic(baseUrl,apiKey,path){
+  const token=await fbAnonToken(baseUrl,apiKey);
+  let full=baseUrl.replace(/\/$/,'')+path;
+  if(token)full+=(full.includes('?')?'&':'?')+'auth='+encodeURIComponent(token);
+  return fetch(full);
+}
+
 let _projectsCache=null; // in-memory cache so sync feels instant
 
 function getProjects(){
@@ -2350,16 +2504,14 @@ function getProjects(){
 function saveAllProjects(arr){
   _projectsCache=arr;
   localStorage.setItem('d2s_projects',JSON.stringify(arr)); // local backup
-  const url=fbUrl();
-  if(!url)return;
-  fetch(url+'/d2s_projects.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(arr)})
+  if(!fbUrl())return;
+  fbFetch('/d2s_projects.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(arr)})
     .catch(()=>{/* silent – local copy still saved */});
 }
 async function syncFromCloud(){
-  const url=fbUrl();
-  if(!url)return;
+  if(!fbUrl())return;
   try{
-    const r=await fetch(url+'/d2s_projects.json');
+    const r=await fbFetch('/d2s_projects.json');
     if(!r.ok)return;
     const data=await r.json();
     if(Array.isArray(data)&&data.length>0){
@@ -2370,31 +2522,40 @@ async function syncFromCloud(){
       // Firebase empty — push local data up so the other user can see it
       const local=JSON.parse(localStorage.getItem('d2s_projects')||'[]');
       if(local.length>0){
-        fetch(url+'/d2s_projects.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(local)}).catch(()=>{});
+        fbFetch('/d2s_projects.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(local)}).catch(()=>{});
       }
     }
   }catch(e){/* offline – use local copy */}
 }
-async function testFirebaseUrl(url){
+async function testFirebaseUrl(){
   try{
-    const r=await fetch(url.replace(/\/$/,'')+'/d2s_ping.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:'"ok"'});
+    const r=await fbFetch('/d2s_ping.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:'"ok"'});
     return r.ok;
   }catch{return false;}
 }
 async function saveFirebaseUrl(){
   const inp=document.getElementById('fb-url-input');
+  const keyInp=document.getElementById('fb-apikey-input');
   const st=document.getElementById('fb-status');
   const url=(inp.value||'').trim();
+  const apiKey=(keyInp?.value||'').trim();
   if(!url){st.style.display='block';st.style.color='#DC2626';st.textContent='Please enter a URL.';return;}
   st.style.display='block';st.style.color='var(--muted)';st.textContent='Testing connection…';
-  const ok=await testFirebaseUrl(url);
-  if(!ok){st.style.color='#DC2626';st.textContent='Could not connect. Make sure the URL is correct and database rules allow read/write.';return;}
   localStorage.setItem(FB_KEY,url);
+  if(apiKey)localStorage.setItem(FB_APIKEY_KEY,apiKey);else localStorage.removeItem(FB_APIKEY_KEY);
+  const ok=await testFirebaseUrl();
+  if(!ok){
+    st.style.color='#DC2626';
+    st.textContent=apiKey
+      ?'Could not connect. Check the URL and API key, and make sure Anonymous sign-in is enabled under Firebase → Authentication → Sign-in method.'
+      :'Could not connect. Make sure the URL is correct and database rules allow read/write.';
+    return;
+  }
   st.style.color='#10B981';st.textContent='✓ Connected! Checking Firebase…';
   // Pull first to see what Firebase already has
   let fbData=null;
   try{
-    const r=await fetch(url.replace(/\/$/,'')+'/d2s_projects.json');
+    const r=await fbFetch('/d2s_projects.json');
     if(r.ok){const d=await r.json();if(Array.isArray(d))fbData=d;}
   }catch(e){}
   const local=JSON.parse(localStorage.getItem('d2s_projects')||'[]');
@@ -2406,7 +2567,7 @@ async function saveFirebaseUrl(){
     toast(`Firebase connected — ${fbData.length} projects synced from cloud!`,'success');
   } else if(local.length>0){
     // Firebase is empty but we have local projects — push them up
-    await fetch(url.replace(/\/$/,'')+'/d2s_projects.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(local)});
+    await fbFetch('/d2s_projects.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(local)});
     _projectsCache=local;
     st.textContent=`✓ Connected — uploaded ${local.length} local projects to Firebase`;
     toast(`Firebase connected — ${local.length} projects uploaded to cloud!`,'success');
@@ -2418,20 +2579,28 @@ async function saveFirebaseUrl(){
 }
 function clearFirebaseUrl(){
   localStorage.removeItem(FB_KEY);
+  localStorage.removeItem(FB_APIKEY_KEY);
   const st=document.getElementById('fb-status');
   if(st){st.style.display='block';st.style.color='var(--muted)';st.textContent='Disconnected. Projects will be stored locally only.';}
   const inp=document.getElementById('fb-url-input');
   if(inp)inp.value='';
+  const keyInp=document.getElementById('fb-apikey-input');
+  if(keyInp)keyInp.value='';
   toast('Firebase disconnected');
 }
 function initFirebaseSettings(){
   const inp=document.getElementById('fb-url-input');
+  const keyInp=document.getElementById('fb-apikey-input');
   const st=document.getElementById('fb-status');
   if(!inp)return;
   const url=fbUrl();
   if(url){
     inp.value=url;
-    if(st){st.style.display='block';st.style.color='#10B981';st.textContent='✓ Connected to Firebase';}
+    if(keyInp)keyInp.value=fbApiKey();
+    if(st){
+      st.style.display='block';st.style.color='#10B981';
+      st.textContent=fbApiKey()?'✓ Connected to Firebase (authenticated)':'✓ Connected to Firebase — add an API key below to enable authenticated access';
+    }
   }
 }
 
@@ -2719,15 +2888,13 @@ function getOvertime(){
 function saveAllOvertime(arr){
   _overtimeCache=arr;
   localStorage.setItem('d2s_overtime',JSON.stringify(arr));
-  const url=fbUrl();
-  if(!url)return;
-  fetch(url+'/d2s_overtime.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(arr)}).catch(()=>{});
+  if(!fbUrl())return;
+  fbFetch('/d2s_overtime.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(arr)}).catch(()=>{});
 }
 async function syncOvertimeFromCloud(){
-  const url=fbUrl();
-  if(!url)return;
+  if(!fbUrl())return;
   try{
-    const r=await fetch(url+'/d2s_overtime.json');
+    const r=await fbFetch('/d2s_overtime.json');
     if(!r.ok)return;
     const data=await r.json();
     if(Array.isArray(data)&&data.length>0){
@@ -2736,7 +2903,7 @@ async function syncOvertimeFromCloud(){
     } else {
       const local=JSON.parse(localStorage.getItem('d2s_overtime')||'[]');
       if(local.length>0){
-        fetch(url+'/d2s_overtime.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(local)}).catch(()=>{});
+        fbFetch('/d2s_overtime.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(local)}).catch(()=>{});
       }
     }
   }catch(e){}
@@ -3005,9 +3172,8 @@ function getReports(){
 function saveAllReports(arr){
   _reportsCache=arr;
   localStorage.setItem('d2s_reports',JSON.stringify(arr));
-  const url=fbUrl();
-  if(!url)return;
-  fetch(url+'/d2s_reports.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(arr)})
+  if(!fbUrl())return;
+  fbFetch('/d2s_reports.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(arr)})
     .catch(()=>{});
 }
 // ═══════════════════════════════════════════════════════
@@ -3046,7 +3212,7 @@ function getMemberDelayedCount(memberId){
   return count;
 }
 
-const PERF_STATUS_LABEL={'on-track':'On Track','at-risk':'At Risk','blocked':'Blocked'};
+const PERF_STATUS_LABEL={'on-track':'Good','at-risk':'At-risk','blocked':'Needs Improvement'};
 
 // ═══════════════════════════════════════════════════════
 //  TEAM PERFORMANCE — weekly, per-member, lockable records
@@ -3061,16 +3227,14 @@ function getPerfWeeks(){
 function savePerfWeeks(arr){
   _tpCache=arr;
   localStorage.setItem('d2s_team_perf_weeks',JSON.stringify(arr));
-  const url=fbUrl();
-  if(!url)return;
-  fetch(url+'/d2s_team_perf_weeks.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(arr)})
+  if(!fbUrl())return;
+  fbFetch('/d2s_team_perf_weeks.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(arr)})
     .catch(()=>{});
 }
 async function syncPerfWeeksFromCloud(){
-  const url=fbUrl();
-  if(!url)return;
+  if(!fbUrl())return;
   try{
-    const r=await fetch(url+'/d2s_team_perf_weeks.json');
+    const r=await fbFetch('/d2s_team_perf_weeks.json');
     if(!r.ok)return;
     const data=await r.json();
     if(Array.isArray(data)&&data.length>0){
@@ -3079,7 +3243,7 @@ async function syncPerfWeeksFromCloud(){
     } else {
       const local=JSON.parse(localStorage.getItem('d2s_team_perf_weeks')||'[]');
       if(local.length>0){
-        fetch(url+'/d2s_team_perf_weeks.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(local)}).catch(()=>{});
+        fbFetch('/d2s_team_perf_weeks.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(local)}).catch(()=>{});
       }
     }
   }catch(e){}
@@ -3117,6 +3281,10 @@ function renderPerfWeeks(){
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px" aria-hidden="true"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
           ${w.locked?'View':'Open'}
         </button>
+        ${entries.length>0?`<button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();shareWholeWeek('${w.id}')" title="Copy shareable link for the full team report">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          Share
+        </button>`:''}
         ${!w.locked?`<button class="btn btn-sm" onclick="event.stopPropagation();deletePerfWeek('${w.id}')" style="background:#FEF2F2;color:#DC2626;border:1px solid #FECACA" title="Delete">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
         </button>`:''}
@@ -3176,8 +3344,30 @@ function computeSummary(entry){
   return{overallScore,category,ratings:ratingsOut};
 }
 
-function summaryCardHtml(summary){
+function managerDisplayName(entry){
+  return entry.manager?entry.manager.split('@')[0].replace(/\./g,' ').replace(/\b\w/g,c=>c.toUpperCase()):'';
+}
+
+function summaryCardHtml(summary,meta){
+  meta=meta||{};
+  let metaHtml='';
+  if(meta.employeeName){
+    const[c1,c2]=avatarGrad(meta.employeeName);
+    const statusPill=summary.overallScore!=null?`<span class="perf-tag ${scoreClass(summary.overallScore)}">${PERF_STATUS_LABEL[scoreClass(summary.overallScore)]}</span>`:'';
+    metaHtml=`<div class="ceo-summary-meta">
+      <div class="ceo-summary-avatar" style="background:linear-gradient(135deg,${c1},${c2})" aria-hidden="true">${initials(meta.employeeName)}</div>
+      <div class="ceo-summary-meta-info">
+        <div class="ceo-summary-meta-row">
+          <span class="ceo-summary-meta-name">${meta.employeeName}</span>
+          ${meta.department?`<span class="perf-tag" style="background:#EEF2FF;color:var(--indigo)">${meta.department}</span>`:''}
+          ${statusPill}
+        </div>
+        ${meta.managerName?`<div class="ceo-summary-meta-sub">Reports to ${meta.managerName}</div>`:''}
+      </div>
+    </div>`;
+  }
   return `<div class="ceo-summary-card">
+    ${metaHtml}
     <h3>Summary</h3>
     <div class="ceo-summary-score">
       <span class="num">${summary.overallScore!=null?summary.overallScore:'—'}${summary.overallScore!=null?'<span style="font-size:16px;font-weight:600;opacity:.6">/100</span>':''}</span>
@@ -3421,7 +3611,22 @@ function sharePerfEntry(index){
   const url=fbUrl();
   let link=`${base}?perf=${weekId}&entry=${entry.id}`;
   if(url)link+='&fb='+encodeURIComponent(url);
+  if(fbApiKey())link+='&fbk='+encodeURIComponent(fbApiKey());
   navigator.clipboard.writeText(link).then(()=>toast('Public link copied! Anyone with this link can view it — no login required.','success')).catch(()=>{
+    prompt('Copy this link:',link);
+  });
+}
+
+// ── Share the entire week's team report (all employees at once) ──
+function shareWholeWeek(weekId){
+  const week=getPerfWeeks().find(w=>w.id===weekId);
+  if(!week||!(week.entries||[]).length){toast('Add at least one report before sharing.','error');return}
+  const base=location.href.split('#')[0].split('?')[0];
+  const url=fbUrl();
+  let link=`${base}?perfweek=${weekId}`;
+  if(url)link+='&fb='+encodeURIComponent(url);
+  if(fbApiKey())link+='&fbk='+encodeURIComponent(fbApiKey());
+  navigator.clipboard.writeText(link).then(()=>toast('Public link copied! Anyone with this link can view the full team report — no login required.','success')).catch(()=>{
     prompt('Copy this link:',link);
   });
 }
@@ -3430,14 +3635,7 @@ function sharePerfEntry(index){
 function peReadOnlySectionsHtml(entry){
   const row=(label,value)=>`<div style="margin-bottom:14px"><div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:3px">${label}</div><div style="font-size:14px;color:var(--text);line-height:1.6">${value===0?0:(value||'—')}</div></div>`;
   const sectionTitle=t=>`<div class="pub-report-section-title" style="margin-top:8px">${t}</div>`;
-  const managerName=entry.manager?entry.manager.split('@')[0].replace(/\./g,' ').replace(/\b\w/g,c=>c.toUpperCase()):'';
   return `
-    ${sectionTitle('Employee')}
-    <div class="proj-detail-grid">
-      ${row('Employee',entry.employeeName)}
-      ${row('Department',entry.department)}
-      ${row('Reporting Manager',managerName)}
-    </div>
     ${entry.autoStats?row('From ClickUp',`${entry.autoStats.assigned} assigned · ${entry.autoStats.completed} completed · ${entry.autoStats.delayed} delayed`):''}
     ${sectionTitle('Notes')}
     ${row('',entry.notes)}
@@ -3446,8 +3644,9 @@ function peReadOnlySectionsHtml(entry){
 
 function showPublicPerfEntry(entry,weekLabel){
   document.getElementById('pub-perf-title').textContent=`${entry.employeeName}'s Weekly Performance Report`;
-  document.getElementById('pub-perf-week').textContent=weekLabel?`Week of ${weekLabel}${entry.department?' · '+entry.department:''}`:'';
-  document.getElementById('pub-perf-body').innerHTML=summaryCardHtml(computeSummary(entry))+peReadOnlySectionsHtml(entry);
+  document.getElementById('pub-perf-week').textContent=weekLabel?`Week of ${weekLabel}`:'';
+  const meta={employeeName:entry.employeeName,department:entry.department,managerName:managerDisplayName(entry)};
+  document.getElementById('pub-perf-body').innerHTML=summaryCardHtml(computeSummary(entry),meta)+peReadOnlySectionsHtml(entry);
   document.getElementById('public-perf-overlay').classList.add('open');
   document.body.style.overflow='hidden';
 }
@@ -3463,15 +3662,22 @@ async function checkPublicPerfUrl(){
   document.getElementById('pub-perf-week').textContent='';
   let week=null;
   const fbFromUrl=params.get('fb');
-  const urlsToTry=[fbFromUrl,fbUrl()].filter(Boolean);
-  for(const url of urlsToTry){
+  const fbkFromUrl=params.get('fbk');
+  const candidates=[
+    fbFromUrl?{url:fbFromUrl,apiKey:fbkFromUrl||''}:null,
+    fbUrl()?{url:fbUrl(),apiKey:fbApiKey()}:null
+  ].filter(Boolean);
+  for(const c of candidates){
     if(week)break;
     try{
-      const r=await fetch(url.replace(/\/$/,'')+'/d2s_team_perf_weeks.json');
+      const r=await fbFetchPublic(c.url,c.apiKey,'/d2s_team_perf_weeks.json');
       if(r.ok){
         const data=await r.json();
         if(Array.isArray(data))week=data.find(w=>w.id===weekId)||null;
-        if(week&&fbFromUrl)localStorage.setItem(FB_KEY,fbFromUrl.replace(/\/$/,''));
+        if(week&&fbFromUrl){
+          localStorage.setItem(FB_KEY,fbFromUrl.replace(/\/$/,''));
+          if(fbkFromUrl)localStorage.setItem(FB_APIKEY_KEY,fbkFromUrl);
+        }
       }
     }catch(e){}
   }
@@ -3483,6 +3689,71 @@ async function checkPublicPerfUrl(){
   if(entry){
     const weekLabel=week.weekStart&&week.weekEnd?`${fmtDate(week.weekStart)} – ${fmtDate(week.weekEnd)}`:'';
     showPublicPerfEntry(entry,weekLabel);
+  } else {
+    document.getElementById('pub-perf-body').innerHTML='<p style="color:#DC2626;text-align:center;padding:40px 0">⚠️ Report not found. The link may have expired or the report was deleted.</p>';
+  }
+  return true;
+}
+
+// ── Read-only rendering of the entire team's report for one week ──
+function showPublicPerfWeek(week){
+  const weekLabel=week.weekStart&&week.weekEnd?`${fmtDate(week.weekStart)} – ${fmtDate(week.weekEnd)}`:'';
+  const entries=(week.entries||[]).slice();
+  document.getElementById('pub-perf-title').textContent='Team Weekly Performance Report';
+  document.getElementById('pub-perf-week').textContent=weekLabel?`Week of ${weekLabel} · ${entries.length} member${entries.length===1?'':'s'}`:'';
+  const counts={'on-track':0,'at-risk':0,'blocked':0};
+  entries.forEach(e=>{
+    const cls=scoreClass(computeSummary(e).overallScore);
+    if(counts[cls]!==undefined)counts[cls]++;
+  });
+  const chips=Object.keys(counts).filter(k=>counts[k]>0).map(k=>`<span class="perf-tag ${k}">${counts[k]} ${PERF_STATUS_LABEL[k]}</span>`).join('');
+  const entriesHtml=entries.map((entry,i)=>{
+    const meta={employeeName:entry.employeeName||'Untitled',department:entry.department,managerName:managerDisplayName(entry)};
+    return `<div style="${i>0?'padding-top:24px;margin-top:24px;border-top:1px solid var(--border)':''}">
+      ${summaryCardHtml(computeSummary(entry),meta)}
+      ${peReadOnlySectionsHtml(entry)}
+    </div>`;
+  }).join('');
+  document.getElementById('pub-perf-body').innerHTML=(chips?`<div class="chip-group">${chips}</div>`:'')+(entriesHtml||'<em style="color:#9CA3AF">No entries in this week yet.</em>');
+  document.getElementById('public-perf-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+async function checkPublicPerfWeekUrl(){
+  const params=new URLSearchParams(window.location.search);
+  const weekId=params.get('perfweek');
+  if(!weekId)return false;
+  document.getElementById('public-perf-overlay').classList.add('open');
+  document.getElementById('pub-perf-body').innerHTML='<p style="color:var(--muted);text-align:center;padding:40px 0">Loading report…</p>';
+  document.getElementById('pub-perf-title').textContent='Team Weekly Performance Report';
+  document.getElementById('pub-perf-week').textContent='';
+  let week=null;
+  const fbFromUrl=params.get('fb');
+  const fbkFromUrl=params.get('fbk');
+  const candidates=[
+    fbFromUrl?{url:fbFromUrl,apiKey:fbkFromUrl||''}:null,
+    fbUrl()?{url:fbUrl(),apiKey:fbApiKey()}:null
+  ].filter(Boolean);
+  for(const c of candidates){
+    if(week)break;
+    try{
+      const r=await fbFetchPublic(c.url,c.apiKey,'/d2s_team_perf_weeks.json');
+      if(r.ok){
+        const data=await r.json();
+        if(Array.isArray(data))week=data.find(w=>w.id===weekId)||null;
+        if(week&&fbFromUrl){
+          localStorage.setItem(FB_KEY,fbFromUrl.replace(/\/$/,''));
+          if(fbkFromUrl)localStorage.setItem(FB_APIKEY_KEY,fbkFromUrl);
+        }
+      }
+    }catch(e){}
+  }
+  if(!week){
+    const local=JSON.parse(localStorage.getItem('d2s_team_perf_weeks')||'[]');
+    week=local.find(w=>w.id===weekId)||null;
+  }
+  if(week){
+    showPublicPerfWeek(week);
   } else {
     document.getElementById('pub-perf-body').innerHTML='<p style="color:#DC2626;text-align:center;padding:40px 0">⚠️ Report not found. The link may have expired or the report was deleted.</p>';
   }
@@ -3612,10 +3883,9 @@ function deletePerfWeek(id){
 }
 
 async function syncReportsFromCloud(){
-  const url=fbUrl();
-  if(!url)return;
+  if(!fbUrl())return;
   try{
-    const r=await fetch(url+'/d2s_reports.json');
+    const r=await fbFetch('/d2s_reports.json');
     if(!r.ok)return;
     const data=await r.json();
     if(Array.isArray(data)&&data.length>0){
@@ -3624,7 +3894,7 @@ async function syncReportsFromCloud(){
     } else {
       const local=JSON.parse(localStorage.getItem('d2s_reports')||'[]');
       if(local.length>0){
-        fetch(url+'/d2s_reports.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(local)}).catch(()=>{});
+        fbFetch('/d2s_reports.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(local)}).catch(()=>{});
       }
     }
   }catch(e){}
@@ -3633,6 +3903,22 @@ async function syncReportsFromCloud(){
 // (fetchReportById inlined into checkPublicReportUrl below)
 // placeholder kept for reference only
 async function fetchReportById(id){return null;
+}
+
+function escapeHtml(s){
+  return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// ── Read-only rendering of project-update blocks (report cards + public share page) ──
+function reportBlocksHtml(blocks){
+  if(!blocks||!blocks.length)return'<em style="color:#9CA3AF">No project updates yet</em>';
+  return blocks.map(b=>{
+    const points=(b.notes||'').split('\n').map(s=>s.trim()).filter(Boolean);
+    return`<div class="ru-view-block">
+      <div class="ru-view-name">${escapeHtml(b.projectName||'Untitled Project')}</div>
+      ${points.length?`<ul>${points.map(p=>`<li>${escapeHtml(p)}</li>`).join('')}</ul>`:'<p style="color:#9CA3AF;font-size:13px;margin:0">No notes added</p>'}
+    </div>`;
+  }).join('');
 }
 
 function renderReports(){
@@ -3644,13 +3930,13 @@ function renderReports(){
   empty.style.display='none';
   grid.innerHTML=reports.map(r=>{
     const weekLabel=r.weekStart&&r.weekEnd?`${fmtDate(r.weekStart)} – ${fmtDate(r.weekEnd)}`:(r.weekStart?fmtDate(r.weekStart):'No dates set');
-    const preview=r.content?(new DOMParser().parseFromString(r.content,'text/html').body.textContent||'').slice(0,160):'';
+    const bodyHtml=Array.isArray(r.projectUpdates)?reportBlocksHtml(r.projectUpdates):(r.content||'<em style="color:#9CA3AF">No content yet</em>');
     return `<div class="report-card" onclick="openEditReport('${r.id}')">
       <div class="report-card-head">
         <div class="report-card-week">Week of ${weekLabel}</div>
         <div class="report-card-meta">By ${r.createdBy||'team'} · ${fmtDate(r.updatedAt||r.createdAt)}</div>
       </div>
-      <div class="report-card-body">${r.content||'<em style="color:#9CA3AF">No content yet</em>'}</div>
+      <div class="report-card-body">${bodyHtml}</div>
       <div class="report-card-foot">
         <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();shareReport('${r.id}')" title="Copy shareable link">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
@@ -3668,14 +3954,124 @@ function renderReports(){
   }).join('');
 }
 
+// ═══════════════════════════════════════════════════════
+//  PROJECT UPDATE PICKER — search a tracked project, add it,
+//  then jot notes/points for it. Replaces the old free-form
+//  rich-text editor with structured per-project sections.
+// ═══════════════════════════════════════════════════════
+let _rmBlocks=[];
+
+function ruAutosize(el){
+  el.style.height='auto';
+  el.style.height=Math.max(el.scrollHeight,112)+'px';
+}
+
+function rmRenderBlocks(){
+  const wrap=document.getElementById('rm-project-blocks');
+  const empty=document.getElementById('rm-blocks-empty');
+  empty.classList.toggle('hidden',!!_rmBlocks.length);
+  const projects=getProjects();
+  wrap.innerHTML=_rmBlocks.map(b=>{
+    const[c1,c2]=avatarGrad(b.projectName);
+    const linkedProject=b.projectId?projects.find(p=>String(p.id)===String(b.projectId)):null;
+    const statusHtml=linkedProject?psBadge(linkedProject.projectStatus):(b.projectId?'':'<span class="perf-tag" style="background:#EEF2FF;color:var(--indigo)">Custom</span>');
+    return `<div class="ru-block">
+      <div class="ru-block-head">
+        <div class="ru-block-avatar" style="background:linear-gradient(135deg,${c1},${c2})" aria-hidden="true">${initials(b.projectName)}</div>
+        <div class="ru-block-name-wrap">
+          <span class="ru-block-name">${escapeHtml(b.projectName)}</span>
+          ${statusHtml}
+        </div>
+        <button type="button" class="btn-icon danger" onclick="ruRemoveBlock('${b.id}')" aria-label="Remove ${escapeHtml(b.projectName)} from this report">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
+        </button>
+      </div>
+      <textarea placeholder="What's the update? One point per line — wins, blockers, next steps…" oninput="ruUpdateNotes('${b.id}',this.value);ruAutosize(this)">${escapeHtml(b.notes||'')}</textarea>
+    </div>`;
+  }).join('');
+  wrap.querySelectorAll('textarea').forEach(ruAutosize);
+}
+
+function ruAddBlock(projectId,projectName){
+  const key=(projectId?String(projectId):null);
+  const dup=_rmBlocks.some(b=>key?String(b.projectId)===key:b.projectName.toLowerCase()===projectName.toLowerCase());
+  if(dup){toast('That project is already in this report.','error');return;}
+  _rmBlocks.push({id:uuid(),projectId:projectId||null,projectName,notes:''});
+  rmRenderBlocks();
+  const search=document.getElementById('rm-project-search');
+  search.value='';
+  ruCloseDropdown();
+  search.focus();
+}
+
+function ruRemoveBlock(id){
+  _rmBlocks=_rmBlocks.filter(b=>b.id!==id);
+  rmRenderBlocks();
+}
+
+function ruUpdateNotes(id,val){
+  const b=_rmBlocks.find(x=>x.id===id);
+  if(b)b.notes=val;
+}
+
+function ruCloseDropdown(){
+  const dd=document.getElementById('rm-project-dropdown');
+  dd.classList.add('hidden');
+  dd.innerHTML='';
+}
+
+// JSON.stringify() produces double-quoted JS string literals, which would
+// otherwise prematurely close a double-quoted HTML attribute — escape for
+// safe embedding inside onmousedown="..."
+function jsAttr(v){return escapeHtml(JSON.stringify(v));}
+
+function ruSearchInput(){
+  const q=document.getElementById('rm-project-search').value.trim().toLowerCase();
+  const addedIds=new Set(_rmBlocks.filter(b=>b.projectId).map(b=>String(b.projectId)));
+  const addedNames=new Set(_rmBlocks.filter(b=>!b.projectId).map(b=>b.projectName.toLowerCase()));
+  const matches=getProjects()
+    .filter(p=>p.name&&!addedIds.has(String(p.id)))
+    .filter(p=>!q||p.name.toLowerCase().includes(q))
+    .sort((a,b)=>a.name.localeCompare(b.name))
+    .slice(0,8);
+  const dd=document.getElementById('rm-project-dropdown');
+  let html=matches.map(p=>`<div class="ru-search-item" onmousedown="event.preventDefault();ruAddBlock(${jsAttr(p.id)},${jsAttr(p.name)})">
+    <span class="n">${escapeHtml(p.name)}</span>
+    <span class="s">${P_STATUS[p.projectStatus]||''}</span>
+  </div>`).join('');
+  if(!matches.length)html+=`<div class="ru-search-empty">No matching projects${q?' for “'+escapeHtml(q)+'”':''}.</div>`;
+  if(q&&!addedNames.has(q)&&!matches.some(p=>p.name.toLowerCase()===q)){
+    const raw=document.getElementById('rm-project-search').value.trim();
+    html+=`<div class="ru-search-custom" onmousedown="event.preventDefault();ruAddBlock(null,${jsAttr(raw)})">+ Add “${escapeHtml(raw)}” as a custom update</div>`;
+  }
+  dd.innerHTML=html;
+  dd.classList.remove('hidden');
+}
+
+function ruSearchBlur(){
+  setTimeout(ruCloseDropdown,150);
+}
+
+function ruSearchKeydown(event){
+  if(event.key==='Escape'){ruCloseDropdown();event.target.blur();}
+  else if(event.key==='Enter'){
+    event.preventDefault();
+    const first=document.querySelector('#rm-project-dropdown .ru-search-item, #rm-project-dropdown .ru-search-custom');
+    if(first)first.dispatchEvent(new MouseEvent('mousedown'));
+  }
+}
+
 function openNewReport(){
   document.getElementById('report-modal-title').textContent='New Weekly Status Report';
   document.getElementById('rm-id').value='';
   document.getElementById('rm-start').value='';
   document.getElementById('rm-end').value='';
-  document.getElementById('rm-editor').innerHTML='';
+  document.getElementById('rm-project-search').value='';
   document.getElementById('rm-err').textContent='';
   document.getElementById('rm-err').classList.remove('show');
+  _rmBlocks=[];
+  rmRenderBlocks();
+  ruCloseDropdown();
   // Default to current week (Mon–Sun)
   const today=new Date();
   const day=today.getDay();
@@ -3684,7 +4080,7 @@ function openNewReport(){
   document.getElementById('rm-start').value=mon.toISOString().slice(0,10);
   document.getElementById('rm-end').value=sun.toISOString().slice(0,10);
   openModal('report-modal');
-  setTimeout(()=>document.getElementById('rm-editor').focus(),80);
+  setTimeout(()=>document.getElementById('rm-project-search').focus(),80);
 }
 
 function openEditReport(id){
@@ -3693,9 +4089,22 @@ function openEditReport(id){
   document.getElementById('rm-id').value=r.id;
   document.getElementById('rm-start').value=r.weekStart||'';
   document.getElementById('rm-end').value=r.weekEnd||'';
-  document.getElementById('rm-editor').innerHTML=r.content||'';
+  document.getElementById('rm-project-search').value='';
   document.getElementById('rm-err').textContent='';
   document.getElementById('rm-err').classList.remove('show');
+  if(Array.isArray(r.projectUpdates)){
+    _rmBlocks=r.projectUpdates.map(b=>({id:b.id||uuid(),projectId:b.projectId||null,projectName:b.projectName||'Untitled Project',notes:b.notes||''}));
+  }else if(r.content){
+    // Legacy free-text report — carry the old content over as a single note block,
+    // keeping each list item / line break as its own point
+    const withBreaks=r.content.replace(/<\/(li|p|div)>/gi,'\n').replace(/<br\s*\/?>/gi,'\n');
+    const text=(new DOMParser().parseFromString(withBreaks,'text/html').body.textContent||'').split('\n').map(s=>s.trim()).filter(Boolean).join('\n');
+    _rmBlocks=text?[{id:uuid(),projectId:null,projectName:'General Notes',notes:text}]:[];
+  }else{
+    _rmBlocks=[];
+  }
+  rmRenderBlocks();
+  ruCloseDropdown();
   openModal('report-modal');
 }
 
@@ -3709,7 +4118,6 @@ function saveReport(){
   const id=document.getElementById('rm-id').value;
   const weekStart=document.getElementById('rm-start').value;
   const weekEnd=document.getElementById('rm-end').value;
-  const content=document.getElementById('rm-editor').innerHTML.trim();
   const errEl=document.getElementById('rm-err');
   if(!weekStart||!weekEnd){errEl.textContent='Please set the week start and end dates.';errEl.classList.add('show');return;}
   errEl.classList.remove('show');
@@ -3718,7 +4126,8 @@ function saveReport(){
   const email=localStorage.getItem('d2s_session')||'team';
   const data={
     id:id||uuid(),
-    weekStart,weekEnd,content,
+    weekStart,weekEnd,
+    projectUpdates:_rmBlocks.map(b=>({id:b.id,projectId:b.projectId,projectName:b.projectName,notes:b.notes||''})),
     updatedAt:now,
     createdAt:id?(reports.find(r=>r.id===id)?.createdAt||now):now,
     createdBy:email
@@ -3744,15 +4153,10 @@ function shareReport(id){
   // Include Firebase URL in the link so external viewers can fetch the data
   let link=base+'?report='+id;
   if(url)link+='&fb='+encodeURIComponent(url);
+  if(fbApiKey())link+='&fbk='+encodeURIComponent(fbApiKey());
   navigator.clipboard.writeText(link).then(()=>toast('Public link copied! Share with anyone — no login required.','success')).catch(()=>{
     prompt('Copy this link:',link);
   });
-}
-
-// ── Rich text editor command ──
-function rteCmd(cmd){
-  document.getElementById('rm-editor').focus();
-  document.execCommand(cmd,false,null);
 }
 
 // ── Public report view (no auth required) ──
@@ -3760,7 +4164,7 @@ function showPublicReport(report){
   const weekLabel=report.weekStart&&report.weekEnd?`${fmtDate(report.weekStart)} – ${fmtDate(report.weekEnd)}`:(report.weekStart?fmtDate(report.weekStart):'');
   document.getElementById('pub-report-title').textContent=weekLabel?`Week of ${weekLabel}`:'Weekly Status Report';
   document.getElementById('pub-report-week').textContent=`Prepared by ${report.createdBy||'Dot2Shape team'} · Updated ${fmtDate(report.updatedAt||report.createdAt)}`;
-  document.getElementById('pub-report-body').innerHTML=report.content||'<em style="color:#9CA3AF">No content available.</em>';
+  document.getElementById('pub-report-body').innerHTML=Array.isArray(report.projectUpdates)?reportBlocksHtml(report.projectUpdates):(report.content||'<em style="color:#9CA3AF">No content available.</em>');
   document.getElementById('public-report-overlay').classList.add('open');
   document.body.style.overflow='hidden';
 }
@@ -3775,19 +4179,26 @@ async function checkPublicReportUrl(){
   document.getElementById('pub-report-title').textContent='Weekly Status Report';
   document.getElementById('pub-report-week').textContent='';
   let report=null;
-  // 1. Try Firebase URL embedded in the share link (?fb=...)
+  // 1. Try Firebase URL embedded in the share link (?fb=...&fbk=...)
   const fbFromUrl=params.get('fb');
-  const urlsToTry=[fbFromUrl,fbUrl()].filter(Boolean);
-  for(const url of urlsToTry){
+  const fbkFromUrl=params.get('fbk');
+  const candidates=[
+    fbFromUrl?{url:fbFromUrl,apiKey:fbkFromUrl||''}:null,
+    fbUrl()?{url:fbUrl(),apiKey:fbApiKey()}:null
+  ].filter(Boolean);
+  for(const c of candidates){
     if(report)break;
     try{
-      const r=await fetch(url.replace(/\/$/,'')+'/d2s_reports.json');
+      const r=await fbFetchPublic(c.url,c.apiKey,'/d2s_reports.json');
       if(r.ok){
         const data=await r.json();
         if(Array.isArray(data)){
           report=data.find(x=>x.id===reportId)||null;
-          // Cache this Firebase URL for future use
-          if(report&&fbFromUrl)localStorage.setItem(FB_KEY,fbFromUrl.replace(/\/$/,''));
+          // Cache this Firebase URL (and key) for future use
+          if(report&&fbFromUrl){
+            localStorage.setItem(FB_KEY,fbFromUrl.replace(/\/$/,''));
+            if(fbkFromUrl)localStorage.setItem(FB_APIKEY_KEY,fbkFromUrl);
+          }
         }
       }
     }catch(e){}
@@ -4165,9 +4576,26 @@ async function changePassword(){
   const nw=document.getElementById('cpw-new').value;
   const conf=document.getElementById('cpw-confirm').value;
   hideErr('cpw-err');
-  if((await sha256(curr))!==localStorage.getItem('d2s_pw_'+email)){showErr('cpw-err','Current password is incorrect.');return}
   if(nw.length<8){showErr('cpw-err','New password must be at least 8 characters.');return}
   if(nw!==conf){showErr('cpw-err','Passwords do not match.');return}
+  if(fbAuthAvailable()){
+    const auth=fbAuth();
+    const user=auth&&auth.currentUser;
+    if(!user){showErr('cpw-err','Your session expired. Please sign in again.');return}
+    try{
+      const cred=firebase.auth.EmailAuthProvider.credential(email,curr);
+      await user.reauthenticateWithCredential(cred);
+      await user.updatePassword(nw);
+      closeModal('change-pw-modal');
+      toast('Password updated!','success');
+    }catch(e){
+      const msg=(e.code==='auth/wrong-password'||e.code==='auth/invalid-credential')?'Current password is incorrect.':fbAuthErrorMessage(e);
+      showErr('cpw-err',msg);
+    }
+    return;
+  }
+  // Legacy local fallback — only used before Firebase is configured in Settings
+  if((await sha256(curr))!==localStorage.getItem('d2s_pw_'+email)){showErr('cpw-err','Current password is incorrect.');return}
   localStorage.setItem('d2s_pw_'+email,await sha256(nw));
   closeModal('change-pw-modal');
   toast('Password updated!','success');
@@ -4188,13 +4616,33 @@ async function changePassword(){
     checkPublicReportUrl();
     return; // Don't show the login screen; public view handles everything
   }
+  if(params.get('perfweek')){
+    checkPublicPerfWeekUrl();
+    return; // Don't show the login screen; public view handles everything
+  }
   if(params.get('perf')){
     checkPublicPerfUrl();
     return; // Don't show the login screen; public view handles everything
   }
-  const s=localStorage.getItem('d2s_session');
-  if(s&&ALLOWED.includes(s))enterApp(s);
-  else showScreen('screen-login');
+  if(fbAuthAvailable()){
+    // Real Firebase session is the source of truth once configured — a
+    // stale/forged localStorage flag alone can no longer get you in.
+    fbAuth().onAuthStateChanged(user=>{
+      const email=(user&&!user.isAnonymous)?(user.email||'').toLowerCase():'';
+      if(email&&ALLOWED.includes(email)){
+        localStorage.setItem('d2s_session',email);
+        enterApp(email);
+      }else{
+        localStorage.removeItem('d2s_session');
+        showScreen('screen-login');
+      }
+    });
+  }else{
+    // Legacy fallback — only used before Firebase is configured in Settings
+    const s=localStorage.getItem('d2s_session');
+    if(s&&ALLOWED.includes(s))enterApp(s);
+    else showScreen('screen-login');
+  }
   // Sticky offsets are measured in navTo('projects') when the page is visible
 })();
 </script>
