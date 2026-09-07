@@ -1367,12 +1367,12 @@ tr.proj-row:hover td{background:#F8F9FF}
   <div class="modal" style="max-width:640px">
     <div class="modal-title">
       <span id="report-modal-title">New Weekly Status Report</span>
-      <button class="btn-icon" onclick="closeModal('report-modal')" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      <button class="btn-icon" onclick="if(!document.getElementById('rm-id').value)rmClearDraft();closeModal('report-modal')" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <input type="hidden" id="rm-id"/>
     <div class="two-col">
-      <div class="field"><label for="rm-start">Week Start</label><input id="rm-start" type="date" oninput="updateReportTitle()"/></div>
-      <div class="field"><label for="rm-end">Week End</label><input id="rm-end" type="date" oninput="updateReportTitle()"/></div>
+      <div class="field"><label for="rm-start">Week Start</label><input id="rm-start" type="date" oninput="updateReportTitle();rmSaveDraft()"/></div>
+      <div class="field"><label for="rm-end">Week End</label><input id="rm-end" type="date" oninput="updateReportTitle();rmSaveDraft()"/></div>
     </div>
     <div class="field">
       <label>Add a Project Update <span style="font-weight:400;color:var(--muted);font-size:10px;text-transform:none;letter-spacing:0">— search a project, add it, then add your notes for it</span></label>
@@ -1390,7 +1390,7 @@ tr.proj-row:hover td{background:#F8F9FF}
 
     <div class="err-msg" id="rm-err" role="alert"></div>
     <div class="modal-footer">
-      <button class="btn btn-secondary" onclick="closeModal('report-modal')">Cancel</button>
+      <button class="btn btn-secondary" onclick="if(!document.getElementById('rm-id').value)rmClearDraft();closeModal('report-modal')">Cancel</button>
       <button class="btn btn-primary" style="width:auto" onclick="saveReport()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:13px;height:13px" aria-hidden="true"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
         Save Report
@@ -1879,7 +1879,12 @@ document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click
 // Live Summary preview: any change inside the performance report form
 // (ratings, notes, employee) updates the preview card.
 document.getElementById('perf-entry-body').addEventListener('change',e=>{
-  if(e.target.closest('#perf-entry-body'))peUpdateSummaryPreview();
+  if(e.target.closest('#perf-entry-body')){peUpdateSummaryPreview();peSaveDraft();}
+});
+// Continuous draft auto-save (per keystroke / slider drag) so an accidental
+// click on the overlay backdrop never loses an in-progress entry.
+document.getElementById('perf-entry-body').addEventListener('input',e=>{
+  if(e.target.closest('#perf-entry-body'))peSaveDraft();
 });
 
 // ═══════════════════════════════════════════════════════
@@ -3538,6 +3543,37 @@ function peSetLockedUI(locked){
   document.getElementById('pe-save-btn').classList.toggle('hidden',locked);
 }
 
+// ── Draft auto-save for the individual performance entry panel ──────────
+// Only drafts a brand-NEW entry (not one you're re-opening to edit), scoped
+// to the current week so it can't bleed into an unrelated week later.
+// Saved continuously as you type/rate, so an accidental click on the
+// backdrop overlay (or Escape) never loses an in-progress entry.
+const PERFENTRY_DRAFT_KEY='d2s_perfentry_draft';
+function peSaveDraft(){
+  if(document.getElementById('pe-index').value!=='')return;
+  const weekId=document.getElementById('tpw-id').value||'';
+  const entry=peGatherFormToEntry();
+  if(!entry.employeeName&&!(entry.notes||'').trim()){peClearDraft();return;}
+  localStorage.setItem(PERFENTRY_DRAFT_KEY,JSON.stringify({weekId,entry,savedAt:new Date().toISOString()}));
+  let badge=document.getElementById('pe-draft-badge');
+  if(!badge){badge=document.createElement('span');badge.id='pe-draft-badge';badge.className='draft-badge';document.getElementById('perf-entry-title-el').appendChild(badge);}
+  badge.textContent='Draft saved';
+}
+function peClearDraft(){
+  localStorage.removeItem(PERFENTRY_DRAFT_KEY);
+  const b=document.getElementById('pe-draft-badge');if(b)b.remove();
+}
+function peRestoreDraft(weekId){
+  const draft=JSON.parse(localStorage.getItem(PERFENTRY_DRAFT_KEY)||'null');
+  if(!draft||draft.weekId!==weekId)return false;
+  peApplyEntryToForm(draft.entry);
+  let badge=document.getElementById('pe-draft-badge');
+  if(!badge){badge=document.createElement('span');badge.id='pe-draft-badge';badge.className='draft-badge';document.getElementById('perf-entry-title-el').appendChild(badge);}
+  const ago=draft.savedAt?timeSince(new Date(draft.savedAt)):'';
+  badge.textContent='Draft restored'+(ago?' · '+ago:'');
+  return true;
+}
+
 function tpOpenEntry(index){
   const isNew=index===null||index===undefined;
   const entry=isNew?{}:_tpwEntries[index];
@@ -3546,6 +3582,7 @@ function tpOpenEntry(index){
   pePopulateEmployeeSelect();
   pePopulateManagerSelect();
   hideErr('pe-err');
+  const oldBadge=document.getElementById('pe-draft-badge');if(oldBadge)oldBadge.remove();
   const weekStart=document.getElementById('tpw-start').value;
   const weekEnd=document.getElementById('tpw-end').value;
   document.getElementById('pe-week-display').innerHTML=weekStart&&weekEnd?`<span>${fmtDate(weekStart)} – ${fmtDate(weekEnd)}</span>`:'<span>—</span>';
@@ -3553,6 +3590,7 @@ function tpOpenEntry(index){
   if(isNew){
     document.getElementById('perf-entry-title-el').textContent='New Weekly Performance Report';
     document.getElementById('perf-entry-subtitle').textContent='Rate each category 1–10, add a note if needed.';
+    peRestoreDraft(document.getElementById('tpw-id').value||''); // overrides the blank form above if an abandoned draft exists
   } else {
     document.getElementById('perf-entry-title-el').textContent=`${entry.employeeName||'Untitled'}'s Weekly Performance Report`;
     document.getElementById('perf-entry-subtitle').textContent=entry.department||'';
@@ -3597,6 +3635,7 @@ function peSaveEntry(){
   const record=_tpBuildRecord();
   document.getElementById('tpw-id').value=record.id;
   _tpPersist(record);
+  peClearDraft();
   tpRenderList();
   toast('Report saved','success');
   tpCloseEntry();
@@ -3998,6 +4037,7 @@ function ruAddBlock(projectId,projectName){
   if(dup){toast('That project is already in this report.','error');return;}
   _rmBlocks.push({id:uuid(),projectId:projectId||null,projectName,notes:''});
   rmRenderBlocks();
+  rmSaveDraft();
   const search=document.getElementById('rm-project-search');
   search.value='';
   ruCloseDropdown();
@@ -4007,11 +4047,13 @@ function ruAddBlock(projectId,projectName){
 function ruRemoveBlock(id){
   _rmBlocks=_rmBlocks.filter(b=>b.id!==id);
   rmRenderBlocks();
+  rmSaveDraft();
 }
 
 function ruUpdateNotes(id,val){
   const b=_rmBlocks.find(x=>x.id===id);
   if(b)b.notes=val;
+  rmSaveDraft();
 }
 
 function ruCloseDropdown(){
@@ -4061,6 +4103,46 @@ function ruSearchKeydown(event){
   }
 }
 
+// ── Draft auto-save for the Weekly Status report modal ──────────────────
+// Only drafts NEW reports (no rm-id set), same trust model as the project
+// modal's draft. Saved continuously as you type/add blocks, so an accidental
+// outside-click or Escape never loses anything — only an explicit
+// Cancel/close discards it.
+const REPORT_DRAFT_KEY='d2s_report_draft';
+function rmSaveDraft(){
+  if(document.getElementById('rm-id').value)return;
+  const weekStart=document.getElementById('rm-start').value;
+  const weekEnd=document.getElementById('rm-end').value;
+  if(!weekStart&&!weekEnd&&!_rmBlocks.length){rmClearDraft();return;}
+  const draft={
+    weekStart,weekEnd,
+    blocks:_rmBlocks.map(b=>({id:b.id,projectId:b.projectId,projectName:b.projectName,notes:b.notes||''})),
+    savedAt:new Date().toISOString()
+  };
+  localStorage.setItem(REPORT_DRAFT_KEY,JSON.stringify(draft));
+  let badge=document.getElementById('rm-draft-badge');
+  if(!badge){badge=document.createElement('span');badge.id='rm-draft-badge';badge.className='draft-badge';document.getElementById('report-modal-title').appendChild(badge);}
+  badge.textContent='Draft saved';
+}
+function rmClearDraft(){
+  localStorage.removeItem(REPORT_DRAFT_KEY);
+  const b=document.getElementById('rm-draft-badge');if(b)b.remove();
+}
+function rmRestoreDraft(){
+  const draft=JSON.parse(localStorage.getItem(REPORT_DRAFT_KEY)||'null');
+  if(!draft||(!draft.weekStart&&!draft.weekEnd&&!(draft.blocks||[]).length))return false;
+  document.getElementById('rm-start').value=draft.weekStart||'';
+  document.getElementById('rm-end').value=draft.weekEnd||'';
+  _rmBlocks=(draft.blocks||[]).map(b=>({id:b.id||uuid(),projectId:b.projectId||null,projectName:b.projectName||'Untitled Project',notes:b.notes||''}));
+  rmRenderBlocks();
+  updateReportTitle();
+  let badge=document.getElementById('rm-draft-badge');
+  if(!badge){badge=document.createElement('span');badge.id='rm-draft-badge';badge.className='draft-badge';document.getElementById('report-modal-title').appendChild(badge);}
+  const ago=draft.savedAt?timeSince(new Date(draft.savedAt)):'';
+  badge.textContent='Draft restored'+(ago?' · '+ago:'');
+  return true;
+}
+
 function openNewReport(){
   document.getElementById('report-modal-title').textContent='New Weekly Status Report';
   document.getElementById('rm-id').value='';
@@ -4070,7 +4152,7 @@ function openNewReport(){
   document.getElementById('rm-err').textContent='';
   document.getElementById('rm-err').classList.remove('show');
   _rmBlocks=[];
-  rmRenderBlocks();
+  const oldBadge=document.getElementById('rm-draft-badge');if(oldBadge)oldBadge.remove();
   ruCloseDropdown();
   // Default to current week (Mon–Sun)
   const today=new Date();
@@ -4079,6 +4161,8 @@ function openNewReport(){
   const sun=new Date(mon);sun.setDate(mon.getDate()+6);
   document.getElementById('rm-start').value=mon.toISOString().slice(0,10);
   document.getElementById('rm-end').value=sun.toISOString().slice(0,10);
+  rmRestoreDraft(); // overrides the defaults above if an abandoned draft exists
+  rmRenderBlocks();
   openModal('report-modal');
   setTimeout(()=>document.getElementById('rm-project-search').focus(),80);
 }
@@ -4086,6 +4170,7 @@ function openNewReport(){
 function openEditReport(id){
   const r=getReports().find(x=>x.id===id);if(!r)return;
   document.getElementById('report-modal-title').textContent='Edit Weekly Report';
+  const oldBadge=document.getElementById('rm-draft-badge');if(oldBadge)oldBadge.remove();
   document.getElementById('rm-id').value=r.id;
   document.getElementById('rm-start').value=r.weekStart||'';
   document.getElementById('rm-end').value=r.weekEnd||'';
@@ -4135,6 +4220,7 @@ function saveReport(){
   if(id){const i=reports.findIndex(r=>r.id===id);i>-1?reports[i]=data:reports.unshift(data);}
   else reports.unshift(data);
   saveAllReports(reports);
+  rmClearDraft();
   closeModal('report-modal');
   renderReports();
   toast(id?'Report updated!':'Report saved!','success');
